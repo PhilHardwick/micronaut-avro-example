@@ -1,0 +1,71 @@
+plugins {
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+    id "application"
+    id "com.commercehub.gradle.plugin.avro" version "0.16.0"
+}
+
+version "0.1"
+group "kafka.service"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+    maven { url 'https://packages.confluent.io/maven/' }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+dependencies {
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut.configuration:micronaut-kafka"
+    implementation "javax.annotation:javax.annotation-api"
+    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.assertj:assertj-core:3.14.0"
+
+    testImplementation 'org.apache.kafka:kafka-clients:2.3.1:test'
+    testImplementation 'org.apache.kafka:kafka_2.12:2.3.1'
+    testImplementation 'org.apache.kafka:kafka_2.12:2.3.1:test'
+
+    compile "org.apache.avro:avro:1.9.1"
+    implementation "io.confluent:kafka-avro-serializer:$confluentVersion"
+    implementation "io.confluent:kafka-streams-avro-serde:$confluentVersion"
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "kafka.service.Application"
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+
+avro {
+    fieldVisibility = "PRIVATE"
+}

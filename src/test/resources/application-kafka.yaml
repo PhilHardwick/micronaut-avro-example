@@ -1,0 +1,8 @@
+kafka:
+  bootstrap:
+    servers: localhost:${random.port}
+  embedded:
+    enabled: true
+    topics:
+      - transfers
+      - transfer-events

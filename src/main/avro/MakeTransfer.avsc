@@ -1,0 +1,10 @@
+{
+  "type" : "record",
+  "namespace" : "technology.wick.bank.transfers",
+  "name" : "MakeTransfer",
+  "fields" : [
+    {"name": "srcAccountId", "type": {"type": "string", "logicalType": "uuid"}},
+    {"name": "destAccountId", "type": {"type": "string", "logicalType": "uuid"}},
+    {"name": "amount", "type": "long"}
+  ]
+}

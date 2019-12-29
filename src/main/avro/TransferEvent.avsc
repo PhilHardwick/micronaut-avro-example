@@ -1,0 +1,11 @@
+{
+  "type" : "record",
+  "namespace" : "technology.wick.bank.transfers",
+  "name" : "TransferEvent",
+  "fields" : [
+    {"name": "transferId", "type": {"type": "string", "logicalType": "uuid"}},
+    {"name": "srcAccountId", "type": {"type": "string", "logicalType": "uuid"}},
+    {"name": "destAccountId", "type": {"type": "string", "logicalType": "uuid"}},
+    {"name": "amount", "type": "long"}
+  ]
+}
