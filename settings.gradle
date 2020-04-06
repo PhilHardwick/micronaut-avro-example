@@ -9,4 +9,4 @@ pluginManagement {
     }
 }
 
-rootProject.name="micronaut-avro-example"
+rootProject.name="micronaut-avro-streams-example"

@@ -4,5 +4,23 @@ kafka:
   embedded:
     enabled: true
     topics:
-      - transfers
+      - transfer-commands
       - transfer-events
+  schema.registry.url: mock://schema-registry
+  #All producers and consumers
+  key:
+    serializer: org.apache.kafka.common.serialization.UUIDSerializer
+    deserializer: org.apache.kafka.common.serialization.UUIDDeserializer
+  value:
+    serializer: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerializer
+    deserializer: io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer
+#  # Just producers
+#  producers:
+#    default:
+#      key.serializer: org.apache.kafka.common.serialization.UUIDSerializer
+#      value.serializer: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerializer
+#  # Just consumers
+#  consumers:
+#    default:
+#      key.deserializer: org.apache.kafka.common.serialization.UUIDDeserializer
+#      value.deserializer: io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer

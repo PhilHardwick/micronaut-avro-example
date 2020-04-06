@@ -21,9 +21,9 @@ public class TestTransferListener {
 
     @Test
     void sendsATransferEvent() throws InterruptedException {
-        String destAccountId = UUID.randomUUID().toString();
-        String srcAccountId = UUID.randomUUID().toString();
-        makeTransferSender.sendMakeTransfer(MakeTransfer.newBuilder()
+        UUID destAccountId = UUID.randomUUID();
+        UUID srcAccountId = UUID.randomUUID();
+        makeTransferSender.sendMakeTransfer(UUID.randomUUID(), MakeTransfer.newBuilder()
                 .setDestAccountId(destAccountId)
                 .setSrcAccountId(srcAccountId)
                 .setAmount(100)

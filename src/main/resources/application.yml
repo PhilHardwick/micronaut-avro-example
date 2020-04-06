@@ -1,11 +1,20 @@
 ---
 micronaut:
   application:
-    name: transkers-service
+    name: transfers-service
 ---
 kafka:
+#  streams:
+#    #Micronaut default
+#    default:
+#      #Kafka streams default
+#      default:
+#        key:
+#          serde: org.apache.kafka.common.serialization.Serdes$UUIDSerde
+#        value:
+#          serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
   bootstrap:
     servers: localhost:9092
   schema:
     registry:
-      url: ${SCHEMA_REGISTRY_URL:`http://localhost:8081`}
+      url: http://localhost:8081
